@@ -47,4 +47,4 @@ function titleCase(str) {
     .replace(/(^|\s)\S/g, (firstLetter) => firstLetter.toUpperCase());
 }
 
-export { chatTimeFormatter, getName };
+module.exports = { chatTimeFormatter, getName, pad, titleCase };

@@ -17,12 +17,14 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
+    "@types/jest": "^29.2.4",
     "autoprefixer": "^10.4.13",
+    "jest": "^27.5.1",
     "postcss": "^8.0.9",
     "react-scripts": "latest",
     "tailwindcss": "^3.2.4"
