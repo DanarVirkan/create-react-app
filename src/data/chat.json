@@ -6,10 +6,14 @@
         "message": [
             {
                 "datetime": "2022-12-21T19:53:30.005",
-                "content": "Hi! I'm chris, nice to meet you"
+                "content": "Hi!"
+            },
+            {
+                "datetime": "2022-12-21T19:53:30.005",
+                "content": "I'm chris, nice to meet you"
             }
         ],
-        "unread": 1
+        "unread": 2
     },
     {
         "id": 2,

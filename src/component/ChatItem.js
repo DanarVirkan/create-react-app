@@ -40,7 +40,7 @@ function ChatItem({
         >
           {unread > 0 && (
             <span
-              className="bg-green-500 block rounded-full text-center text-xs"
+              className="bg-[#CE7777] flex items-center justify-center rounded-full text-xs text-white"
               style={{
                 width: "20px",
                 height: "20px",

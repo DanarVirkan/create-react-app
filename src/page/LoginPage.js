@@ -30,7 +30,7 @@ function LoginPage() {
                   setEmail(e.target.value);
                 }}
               />
-              <p class="invisible peer-invalid:visible text-[#CE7777] font-light">
+              <p className="invisible peer-invalid:visible text-[#CE7777] font-light">
                 Please enter an email address
               </p>
             </label>
@@ -44,7 +44,7 @@ function LoginPage() {
                   setPass(e.target.value);
                 }}
               />
-              <p class="invisible peer-invalid:visible text-[#CE7777] font-light">
+              <p className="invisible peer-invalid:visible text-[#CE7777] font-light">
                 Please enter a password
               </p>
             </label>
