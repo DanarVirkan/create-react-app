@@ -33,4 +33,18 @@ function pad(num, size) {
   return s.substr(s.length - size);
 }
 
-export { chatTimeFormatter };
+function getName(email) {
+  const pattern = /^([\w-\.])+@/g;
+  const match = email.match(pattern)[0].toString();
+
+  const formatted = match.replace("@", "").replace("_", " ").replace(".", " ");
+  return titleCase(formatted);
+}
+
+function titleCase(str) {
+  return str
+    .toLowerCase()
+    .replace(/(^|\s)\S/g, (firstLetter) => firstLetter.toUpperCase());
+}
+
+export { chatTimeFormatter, getName };
