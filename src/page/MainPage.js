@@ -4,8 +4,8 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import ChatItem from "../component/ChatItem";
 import data from "../data/chat.json";
 import ChatPage from "./ChatPage";
@@ -18,7 +18,12 @@ function MainPage() {
 
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { name } = state;
+
+  useEffect(() => {
+    if (!state) {
+      navigate("/login");
+    }
+  });
 
   return (
     <div className="w-screen h-screen lg:flex">
@@ -110,9 +115,7 @@ function MainPage() {
                   className="hover:cursor-pointer"
                   onClick={() => {
                     navigate(`/detail/${payload.id}`, {
-                      state: {
-                        name,
-                      },
+                      state,
                     });
                   }}
                   key={payload.id}
