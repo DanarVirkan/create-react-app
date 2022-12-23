@@ -15,41 +15,20 @@ function ChatItem({
       onClick={onClick}
     >
       <div className="flex truncate grow">
-        <img
-          src={image}
-          alt=""
-          className="rounded-full"
-          style={{
-            maxHeight: 60 + "px",
-            maxWidth: 60 + "px",
-          }}
-        />
+        <img src={image} alt="" className="rounded-full w-12 h-12" />
         <div className="ml-3 m-auto truncate">
-          <h4 className="font-bold truncate">{name}</h4>
-          <p className="truncate">{content}</p>
+          <h4 className="font-bold truncate text-sm">{name}</h4>
+          <p className="truncate text-xs">{content}</p>
         </div>
       </div>
       <div className="flex flex-col my-auto">
-        <p className="text-sm mb-1">{chatTimeFormatter(datetime)}</p>
-        <div
-          className="ml-auto block"
-          style={{
-            width: "20px",
-            height: "20px",
-          }}
-        >
-          {unread > 0 && (
-            <span
-              className="bg-[#CE7777] flex items-center justify-center rounded-full text-xs text-white"
-              style={{
-                width: "20px",
-                height: "20px",
-              }}
-            >
-              {unread}
-            </span>
-          )}
-        </div>
+        <p className="text-xs mb-1">{chatTimeFormatter(datetime)}</p>
+
+        {unread > 0 && (
+          <div className="bg-[#CE7777] ml-auto w-4 h-4 flex items-center justify-center rounded-full">
+            <span className="text-2xs text-white">{unread}</span>
+          </div>
+        )}
       </div>
     </div>
   );
