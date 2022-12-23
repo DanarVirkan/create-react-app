@@ -5,16 +5,20 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import ChatItem from "../component/ChatItem";
-import data from "../data/chat.json";
+import { updateUnread } from "../redux/features/messageSlice";
 import ChatPage from "./ChatPage";
 
 function MainPage() {
   const [search, openSearch] = useState(false);
-  const [filter, filterChat] = useState("");
-  const [filteredData, dataUpdate] = useState(data);
-  const [chat, openChat] = useState(null);
+  const [filter, updateFilter] = useState("");
+
+  const dispatch = useDispatch();
+  const chat = useSelector((state) => state.message.chat);
+
+  const [chatBox, openChat] = useState(null);
 
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -40,15 +44,7 @@ function MainPage() {
               placeholder="Search by contact name..."
               value={filter}
               onChange={(e) => {
-                filterChat(e.target.value);
-                dataUpdate(
-                  data.filter(
-                    (payload) =>
-                      payload.name
-                        .toLowerCase()
-                        .indexOf(e.target.value.toLowerCase()) > -1
-                  )
-                );
+                updateFilter(e.target.value);
               }}
             />
             <FontAwesomeIcon
@@ -56,13 +52,7 @@ function MainPage() {
               icon={faTimes}
               style={{ minWidth: 24 + "px", minHeight: 24 + "px" }}
               onClick={() => {
-                filterChat("");
-                dataUpdate(
-                  data.filter(
-                    (payload) =>
-                      payload.name.toLowerCase().indexOf("".toLowerCase()) > -1
-                  )
-                );
+                updateFilter("");
               }}
             />
           </div>
@@ -81,66 +71,84 @@ function MainPage() {
           </div>
         )}
         <div className="hidden sm:hidden md:hidden lg:block grow py-2 overflow-y-scroll">
-          {filteredData.length > 0 ? (
-            filteredData.map((payload) => {
-              const lastIndex = payload.message.length - 1;
-              return (
-                <ChatItem
-                  className="hover:cursor-pointer"
-                  onClick={() => {
-                    openChat({
-                      id: payload.id,
-                    });
-                  }}
-                  key={payload.id}
-                  id={payload.id}
-                  name={payload.name}
-                  image={payload.image}
-                  datetime={payload.message[lastIndex].datetime}
-                  content={payload.message[lastIndex].content}
-                  unread={payload.unread}
-                />
-              );
-            })
+          {chat.filter(
+            (payload) =>
+              payload.name.toLowerCase().indexOf(filter.toLowerCase()) > -1
+          ).length > 0 ? (
+            chat
+              .filter(
+                (payload) =>
+                  payload.name.toLowerCase().indexOf(filter.toLowerCase()) > -1
+              )
+              .map((payload) => {
+                const lastIndex = payload.message.length - 1;
+                return (
+                  <ChatItem
+                    className="hover:cursor-pointer"
+                    onClick={() => {
+                      dispatch(updateUnread(payload.id));
+                      openChat({
+                        id: payload.id,
+                      });
+                    }}
+                    key={payload.id}
+                    id={payload.id}
+                    name={payload.name}
+                    image={payload.image}
+                    datetime={payload.message[lastIndex].datetime}
+                    content={payload.message[lastIndex].content}
+                    unread={payload.unread}
+                  />
+                );
+              })
           ) : (
             <p className="text-center mt-10">No results found</p>
           )}
         </div>
         <div className="block lg:hidden grow py-2 overflow-y-scroll">
-          {filteredData.length > 0 ? (
-            filteredData.map((payload) => {
-              const lastIndex = payload.message.length - 1;
-              return (
-                <ChatItem
-                  className="hover:cursor-pointer"
-                  onClick={() => {
-                    navigate(`/detail/${payload.id}`, {
-                      state,
-                    });
-                  }}
-                  key={payload.id}
-                  id={payload.id}
-                  name={payload.name}
-                  image={payload.image}
-                  datetime={payload.message[lastIndex].datetime}
-                  content={payload.message[lastIndex].content}
-                  unread={payload.unread}
-                />
-              );
-            })
+          {chat.filter(
+            (payload) =>
+              payload.name.toLowerCase().indexOf(filter.toLowerCase()) > -1
+          ).length > 0 ? (
+            chat
+              .filter(
+                (payload) =>
+                  payload.name.toLowerCase().indexOf(filter.toLowerCase()) > -1
+              )
+              .map((payload) => {
+                const lastIndex = payload.message.length - 1;
+                return (
+                  <ChatItem
+                    className="hover:cursor-pointer"
+                    onClick={() => {
+                      dispatch(updateUnread(payload.id));
+                      navigate(`/detail/${payload.id}`, {
+                        state,
+                      });
+                    }}
+                    key={payload.id}
+                    id={payload.id}
+                    name={payload.name}
+                    image={payload.image}
+                    datetime={payload.message[lastIndex].datetime}
+                    content={payload.message[lastIndex].content}
+                    unread={payload.unread}
+                  />
+                );
+              })
           ) : (
             <p className="text-center mt-10">No results found</p>
           )}
         </div>
       </div>
       <div className="hidden lg:flex flex-1">
-        {chat == null ? (
+        {chatBox == null ? (
           <div className="m-auto text-center">
             <FontAwesomeIcon icon={faComments} size="5x" className="mb-5" />
             <h2>Click chat in the left side to start chatting</h2>
           </div>
         ) : (
-          <ChatPage id={chat.id} />
+          <ChatPage id={chatBox.id} />
         )}
       </div>
     </div>

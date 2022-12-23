@@ -14,7 +14,7 @@ export const messageSlice = createSlice({
     },
     updateUnread: (state, action) => {
       state.chat.filter(
-        (payload) => payload.id == action.payload.id
+        (payload) => payload.id == action.payload
       )[0].unread = 0;
     },
   },
