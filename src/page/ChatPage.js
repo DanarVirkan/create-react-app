@@ -16,7 +16,7 @@ function ChatPage({ id: idProp }) {
 
   const payload = data.filter((payload) => payload.id == idProp || id)[0];
   return (
-    <div className="w-screen h-screen flex flex-col">
+    <div className="flex-1 h-screen flex flex-col">
       <div className="flex p-5 shadow-md items-center h-16">
         {!idProp && (
           <FontAwesomeIcon
@@ -41,24 +41,26 @@ function ChatPage({ id: idProp }) {
         />
         <h3 className="font-bold ml-3">{payload.name}</h3>
       </div>
-      <div className="grow overflow-y-scroll">
-        {payload.message.map(({ datetime, content }, index) => (
-          <BubbleItem
-            key={index}
-            name={payload.name}
-            datetime={datetime}
-            content={content}
-          />
-        ))}
-        {myChat.map((payload, index) => (
-          <BubbleItem
-            key={index}
-            name={state.name}
-            datetime={Date.now()}
-            content={payload.content}
-            userChat
-          />
-        ))}
+      <div className="grow overflow-y-scroll pt-4">
+        <div className="max-w-5xl mx-auto space-y-4 flex-col">
+          {payload.message.map(({ datetime, content }, index) => (
+            <BubbleItem
+              key={index}
+              name={payload.name}
+              datetime={datetime}
+              content={content}
+            />
+          ))}
+          {myChat.map((payload, index) => (
+            <BubbleItem
+              key={index}
+              name={state.name}
+              datetime={Date.now()}
+              content={payload.content}
+              userChat
+            />
+          ))}
+        </div>
       </div>
       <div className="flex w-full items-center shadow-md py-2">
         <input

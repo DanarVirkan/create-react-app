@@ -4,7 +4,7 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ChatItem from "../component/ChatItem";
 import data from "../data/chat.json";
@@ -26,8 +26,8 @@ function MainPage() {
   });
 
   return (
-    <div className="w-screen h-screen lg:flex">
-      <div className="w-full h-full lg:w-2/6 flex flex-col">
+    <div className="h-screen lg:flex">
+      <div className="w-full h-full lg:max-w-xs flex flex-col">
         {search ? (
           <div className="flex justify-between items-center p-5 shadow-md h-16">
             <FontAwesomeIcon
@@ -133,7 +133,7 @@ function MainPage() {
           )}
         </div>
       </div>
-      <div className="hidden lg:flex lg:w-4/6">
+      <div className="hidden lg:flex flex-1">
         {chat == null ? (
           <div className="m-auto text-center">
             <FontAwesomeIcon icon={faComments} size="5x" className="mb-5" />
