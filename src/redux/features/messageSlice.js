@@ -7,7 +7,7 @@ export const messageSlice = createSlice({
     chat,
   },
   reducers: {
-    postMessage: (state, action) => {
+    sendMessage: (state, action) => {
       state.chat
         .filter((payload) => payload.id == action.payload.id)[0]
         .message.push(action.payload.message);
@@ -20,5 +20,5 @@ export const messageSlice = createSlice({
   },
 });
 
-export const { postMessage, updateUnread } = messageSlice.actions;
+export const { sendMessage, updateUnread } = messageSlice.actions;
 export default messageSlice.reducer;

@@ -13,7 +13,7 @@ function BubbleItem({ name, datetime, content, userChat }) {
             userChat ? "text-[#FFFFFF]" : "text-[#E8C4C4]"
           } text-2xs`}
         >
-          {name}
+          {userChat || name}
         </p>
         <span
           className={`text-2xs ${
@@ -23,7 +23,11 @@ function BubbleItem({ name, datetime, content, userChat }) {
           {chatTimeFormatter(datetime)}
         </span>
       </div>
-      <p className={`text-sm ${userChat ? "text-[#FFFFFF]" : "text-[#000000]"} inline`}>
+      <p
+        className={`text-sm ${
+          userChat ? "text-[#FFFFFF]" : "text-[#000000]"
+        } inline`}
+      >
         {content}
       </p>
     </div>
