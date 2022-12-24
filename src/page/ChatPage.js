@@ -2,35 +2,32 @@ import { faArrowLeft, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import BubbleItem from "../component/BubbleItem";
 import { sendMessage } from "../redux/features/messageSlice";
 
-function ChatPage({ id: idProp }) {
-  const { id } = useParams();
+function ChatPage() {
   const [message, setMessage] = useState("");
+  const { pathname } = useLocation();
 
   const navigate = useNavigate();
-  const { state } = useLocation();
 
   const dispatch = useDispatch();
-  const messageState = useSelector((state) => state.message.chat);
+  const messageState = useSelector((state) => state.message);
 
-  const payload = messageState.filter(
-    (payload) => payload.id == id || idProp // BUG
+  const payload = messageState.chat.filter(
+    (payload) => payload.id == messageState.opened
   )[0];
   return (
     <div className="flex-1 h-screen flex flex-col">
       <div className="flex p-5 shadow-md items-center h-16">
-        {!idProp && (
+        {pathname == "/detail" && (
           <FontAwesomeIcon
             className="hover:cursor-pointer"
             style={{ minWidth: 18 + "px", minHeight: 18 + "px" }}
             icon={faArrowLeft}
             onClick={() => {
-              navigate(`/`, {
-                state,
-              });
+              navigate(`/`);
             }}
           />
         )}
@@ -71,11 +68,11 @@ function ChatPage({ id: idProp }) {
             if (e.key === "Enter") {
               dispatch(
                 sendMessage({
-                  id: idProp || id,
+                  id: messageState.opened,
                   message: {
                     datetime: new Date().toISOString(),
                     content: message,
-                    myChat: state.name,
+                    myChat: messageState.name,
                   },
                 })
               );
@@ -89,11 +86,11 @@ function ChatPage({ id: idProp }) {
           onClick={() => {
             dispatch(
               sendMessage({
-                id: idProp || id,
+                id: messageState.opened,
                 message: {
                   datetime: new Date().toISOString(),
                   content: message,
-                  myChat: state.name,
+                  myChat: messageState.name,
                 },
               })
             );

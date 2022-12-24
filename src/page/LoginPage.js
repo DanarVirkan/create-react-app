@@ -1,13 +1,17 @@
 import { faComments } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setName } from "../redux/features/messageSlice";
 import { getName } from "../utils/formatter";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   return (
     <div className="flex flex-col bg-[#2B3A55] h-screen">
@@ -52,11 +56,8 @@ function LoginPage() {
               className="rounded-md block mx-auto  px-6 py-2 text-white bg-[#CE7777]"
               onClick={() => {
                 if (email && pass) {
-                  navigate("/", {
-                    state: {
-                      name: getName(email),
-                    },
-                  });
+                  dispatch(setName(getName(email)));
+                  navigate("/");
                 }
               }}
             >

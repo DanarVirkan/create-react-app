@@ -6,9 +6,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ChatItem from "../component/ChatItem";
-import { updateUnread } from "../redux/features/messageSlice";
+import { openChat, updateUnread } from "../redux/features/messageSlice";
 import ChatPage from "./ChatPage";
 
 function MainPage() {
@@ -17,14 +17,13 @@ function MainPage() {
 
   const dispatch = useDispatch();
   const chat = useSelector((state) => state.message.chat);
-
-  const [chatBox, openChat] = useState(null);
+  const name = useSelector((state) => state.message.name);
+  const openedChat = useSelector((state) => state.message.opened);
 
   const navigate = useNavigate();
-  const { state } = useLocation();
 
   useEffect(() => {
-    if (!state) {
+    if (!name) {
       navigate("/login");
     }
   });
@@ -87,9 +86,7 @@ function MainPage() {
                     className="hover:cursor-pointer"
                     onClick={() => {
                       dispatch(updateUnread(payload.id));
-                      openChat({
-                        id: payload.id,
-                      });
+                      dispatch(openChat(payload.id));
                     }}
                     key={payload.id}
                     id={payload.id}
@@ -122,9 +119,8 @@ function MainPage() {
                     className="hover:cursor-pointer"
                     onClick={() => {
                       dispatch(updateUnread(payload.id));
-                      navigate(`/detail/${payload.id}`, {
-                        state,
-                      });
+                      dispatch(openChat(payload.id));
+                      navigate(`/detail`);
                     }}
                     key={payload.id}
                     id={payload.id}
@@ -142,13 +138,13 @@ function MainPage() {
         </div>
       </div>
       <div className="hidden lg:flex flex-1">
-        {chatBox == null ? (
+        {openedChat == null ? (
           <div className="m-auto text-center">
             <FontAwesomeIcon icon={faComments} size="5x" className="mb-5" />
             <h2>Click chat in the left side to start chatting</h2>
           </div>
         ) : (
-          <ChatPage id={chatBox.id} />
+          <ChatPage />
         )}
       </div>
     </div>
