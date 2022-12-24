@@ -4,9 +4,17 @@ import chat from "../../data/chat.json";
 export const messageSlice = createSlice({
   name: "message",
   initialState: {
+    name: null,
     chat,
+    opened: null,
   },
   reducers: {
+    setName: (state, action) => {
+      state.name = action.payload;
+    },
+    openChat: (state, action) => {
+      state.opened = action.payload;
+    },
     sendMessage: (state, action) => {
       state.chat
         .filter((payload) => payload.id == action.payload.id)[0]
@@ -20,5 +28,6 @@ export const messageSlice = createSlice({
   },
 });
 
-export const { sendMessage, updateUnread } = messageSlice.actions;
+export const { sendMessage, updateUnread, openChat, setName } =
+  messageSlice.actions;
 export default messageSlice.reducer;
