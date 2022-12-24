@@ -9,6 +9,13 @@ export const messageSlice = createSlice({
     opened: null,
   },
   reducers: {
+    updateMessageStatus: (state, action) => {
+      state.chat
+        .filter((payload) => payload.id == action.payload.id)[0]
+        .message.filter(
+          (payload) => (payload.id == action.payload.messageId)
+        )[0].status = action.payload.status;
+    },
     setName: (state, action) => {
       state.name = action.payload;
     },
@@ -28,6 +35,11 @@ export const messageSlice = createSlice({
   },
 });
 
-export const { sendMessage, updateUnread, openChat, setName } =
-  messageSlice.actions;
+export const {
+  sendMessage,
+  updateUnread,
+  openChat,
+  setName,
+  updateMessageStatus,
+} = messageSlice.actions;
 export default messageSlice.reducer;

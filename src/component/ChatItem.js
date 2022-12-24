@@ -1,3 +1,5 @@
+import { faCheck, faCheckDouble } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { chatTimeFormatter } from "../utils/formatter";
 
 function ChatItem({
@@ -8,6 +10,7 @@ function ChatItem({
   unread,
   onClick,
   className,
+  userChat,
 }) {
   return (
     <div
@@ -18,10 +21,19 @@ function ChatItem({
         <img src={image} alt="" className="rounded-full w-12 h-12" />
         <div className="ml-3 m-auto truncate">
           <h4 className="font-bold truncate text-sm">{name}</h4>
-          <p className="truncate text-xs">{content}</p>
+          <p className="truncate text-xs">
+            {userChat && (
+              <FontAwesomeIcon
+                icon={userChat == "sent" ? faCheck : faCheckDouble}
+                className="mr-1"
+                size="xs"
+              />
+            )}
+            {content}
+          </p>
         </div>
       </div>
-      <div className="flex flex-col my-auto">
+      <div className="flex flex-col my-auto w-fit">
         <p className="text-xs mb-1">{chatTimeFormatter(datetime)}</p>
 
         {unread > 0 && (

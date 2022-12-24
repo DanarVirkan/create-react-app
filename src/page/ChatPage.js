@@ -4,7 +4,10 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import BubbleItem from "../component/BubbleItem";
-import { sendMessage } from "../redux/features/messageSlice";
+import {
+  sendMessage,
+  updateMessageStatus,
+} from "../redux/features/messageSlice";
 
 function ChatPage() {
   const [message, setMessage] = useState("");
@@ -44,13 +47,13 @@ function ChatPage() {
       </div>
       <div className="grow overflow-y-scroll pt-4">
         <div className="max-w-5xl mx-auto space-y-4 flex-col">
-          {payload.message.map(({ datetime, content, myChat }, index) => (
+          {payload.message.map(({ datetime, content, status }, index) => (
             <BubbleItem
               key={index}
-              name={payload.name}
+              name={status ? messageState.name : payload.name}
               datetime={datetime}
               content={content}
-              userChat={myChat}
+              status={status}
             />
           ))}
         </div>
@@ -66,17 +69,28 @@ function ChatPage() {
           className="w-full rounded-lg mx-2 focus:ring-[#CE7777] focus:border-[#CE7777]"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
+              const idMessage = +new Date();
               dispatch(
                 sendMessage({
                   id: messageState.opened,
                   message: {
+                    id: idMessage,
                     datetime: new Date().toISOString(),
                     content: message,
-                    myChat: messageState.name,
+                    status: "sent",
                   },
                 })
               );
               setMessage("");
+              setTimeout(() => {
+                dispatch(
+                  updateMessageStatus({
+                    id: messageState.opened,
+                    messageId: idMessage,
+                    status: "delivered",
+                  })
+                );
+              }, 1000);
             }
           }}
         />
@@ -84,17 +98,28 @@ function ChatPage() {
           icon={faPaperPlane}
           className="ml-2 mr-5"
           onClick={() => {
+            const idMessage = +new Date();
             dispatch(
               sendMessage({
                 id: messageState.opened,
                 message: {
+                  id: idMessage,
                   datetime: new Date().toISOString(),
                   content: message,
-                  myChat: messageState.name,
+                  status: "sent",
                 },
               })
             );
             setMessage("");
+            setTimeout(() => {
+              dispatch(
+                updateMessageStatus({
+                  id: messageState.opened,
+                  messageId: idMessage,
+                  status: "delivered",
+                })
+              );
+            }, 1000);
           }}
         />
       </div>

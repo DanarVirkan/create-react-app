@@ -95,6 +95,7 @@ function MainPage() {
                     datetime={payload.message[lastIndex].datetime}
                     content={payload.message[lastIndex].content}
                     unread={payload.unread}
+                    userChat={payload.message[lastIndex].status}
                   />
                 );
               })
@@ -129,6 +130,7 @@ function MainPage() {
                     datetime={payload.message[lastIndex].datetime}
                     content={payload.message[lastIndex].content}
                     unread={payload.unread}
+                    userChat={payload.message[lastIndex].status}
                   />
                 );
               })
