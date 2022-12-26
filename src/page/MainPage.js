@@ -33,7 +33,11 @@ function MainPage() {
           openSearch={openSearch}
         />
 
-        <ChatList chat={chat} filter={filter} className="overflow-y-scroll" />
+        <ChatList
+          chat={chat}
+          filter={filter}
+          className="overflow-y-scroll h-full"
+        />
       </div>
 
       <div className="flex flex-col h-screen w-full lg:w-3/5">
@@ -53,7 +57,7 @@ function MainPage() {
             <ChatList
               chat={chat}
               filter={filter}
-              className="overflow-y-scroll lg:hidden"
+              className="h-full overflow-y-scroll lg:hidden"
             />
           </div>
         ) : (

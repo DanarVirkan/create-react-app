@@ -2,7 +2,7 @@ import BubbleItem from "./BubbleItem";
 
 function BubbleList({ message, ownerName, name, className }) {
   return (
-    <div className={`${className}`}>
+    <div className={`container max-w-5xl ${className}`}>
       {message.map(({ datetime, content, status }, index) => (
         <BubbleItem
           key={index}
