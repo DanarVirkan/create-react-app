@@ -1,9 +1,9 @@
-import { faArrowLeft, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import BubbleItem from "../component/BubbleItem";
+import BubbleList from "../component/BubbleList";
+import ChatBar from "../component/ChatBar";
 import {
   sendMessage,
   updateMessageStatus,
@@ -11,9 +11,6 @@ import {
 
 function ChatPage() {
   const [message, setMessage] = useState("");
-  const { pathname } = useLocation();
-
-  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const messageState = useSelector((state) => state.message);
@@ -22,42 +19,16 @@ function ChatPage() {
     (payload) => payload.id == messageState.opened
   )[0];
   return (
-    <div className="flex-1 h-screen flex flex-col">
-      <div className="flex p-5 shadow-md items-center h-16">
-        {pathname == "/detail" && (
-          <FontAwesomeIcon
-            className="hover:cursor-pointer"
-            style={{ minWidth: 18 + "px", minHeight: 18 + "px" }}
-            icon={faArrowLeft}
-            onClick={() => {
-              navigate(`/`);
-            }}
-          />
-        )}
-        <img
-          src={payload.image}
-          alt=""
-          className="rounded-full ml-3"
-          style={{
-            maxHeight: 40 + "px",
-            maxWidth: 40 + "px",
-          }}
-        />
-        <h3 className="font-bold ml-3">{payload.name}</h3>
-      </div>
-      <div className="grow overflow-y-scroll pt-4">
-        <div className="max-w-5xl mx-auto space-y-4 flex-col">
-          {payload.message.map(({ datetime, content, status }, index) => (
-            <BubbleItem
-              key={index}
-              name={status ? messageState.name : payload.name}
-              datetime={datetime}
-              content={content}
-              status={status}
-            />
-          ))}
-        </div>
-      </div>
+    <div className="flex flex-col h-full">
+      <ChatBar image={payload.image} name={payload.name} />
+
+      <BubbleList
+        className="flex flex-col h-full overflow-y-scroll"
+        message={payload.message}
+        name={payload.name}
+        ownerName={messageState.name}
+      />
+
       <div className="flex w-full items-center shadow-md py-2">
         <input
           type="text"
