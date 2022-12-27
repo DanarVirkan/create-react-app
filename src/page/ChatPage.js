@@ -39,7 +39,7 @@ function ChatPage() {
           placeholder="Type your message here..."
           className="w-full rounded-lg mx-2 focus:ring-[#CE7777] focus:border-[#CE7777]"
           onKeyDown={(e) => {
-            if (e.key === "Enter") {
+            if (e.key === "Enter" && message != "") {
               const idMessage = +new Date();
               dispatch(
                 sendMessage({
@@ -69,28 +69,30 @@ function ChatPage() {
           icon={faPaperPlane}
           className="ml-2 mr-5"
           onClick={() => {
-            const idMessage = +new Date();
-            dispatch(
-              sendMessage({
-                id: messageState.opened,
-                message: {
-                  id: idMessage,
-                  datetime: new Date().toISOString(),
-                  content: message,
-                  status: "sent",
-                },
-              })
-            );
-            setMessage("");
-            setTimeout(() => {
+            if (message != "") {
+              const idMessage = +new Date();
               dispatch(
-                updateMessageStatus({
+                sendMessage({
                   id: messageState.opened,
-                  messageId: idMessage,
-                  status: "delivered",
+                  message: {
+                    id: idMessage,
+                    datetime: new Date().toISOString(),
+                    content: message,
+                    status: "sent",
+                  },
                 })
               );
-            }, 1000);
+              setMessage("");
+              setTimeout(() => {
+                dispatch(
+                  updateMessageStatus({
+                    id: messageState.opened,
+                    messageId: idMessage,
+                    status: "delivered",
+                  })
+                );
+              }, 1000);
+            }
           }}
         />
       </div>
