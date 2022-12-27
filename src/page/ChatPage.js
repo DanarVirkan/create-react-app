@@ -19,11 +19,11 @@ function ChatPage() {
     (payload) => payload.id == messageState.opened
   )[0];
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full flex-1">
       <ChatBar image={payload.image} name={payload.name} />
 
       <BubbleList
-        className="flex flex-col h-full overflow-y-scroll"
+        className="grow overflow-y-scroll"
         message={payload.message}
         name={payload.name}
         ownerName={messageState.name}

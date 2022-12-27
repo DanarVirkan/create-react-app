@@ -25,7 +25,7 @@ function MainPage() {
 
   return (
     <div className="h-screen w-screen flex flex-col lg:flex-row">
-      <div className="hidden lg:flex flex-col w-2/5">
+      <div className="hidden lg:flex flex-col lg:max-w-xs">
         <AppBar
           search={search}
           filter={filter}
@@ -40,7 +40,7 @@ function MainPage() {
         />
       </div>
 
-      <div className="flex flex-col h-screen w-full lg:w-3/5">
+      <div className="flex flex-col h-screen w-full lg:flex-1">
         {openedChat == null ? (
           <div className="flex flex-col h-full">
             <div className="m-auto text-center hidden lg:block">
