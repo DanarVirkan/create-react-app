@@ -1,7 +1,7 @@
-import { faCheck, faCheckDouble } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { chatTimeFormatter } from "../utils/formatter";
-
+import { faCheck, faCheckDouble } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { chatTimeFormatter } from '../utils/formatter';
+import React from 'react';
 function ChatItem({
   name,
   image,
@@ -24,7 +24,7 @@ function ChatItem({
           <p className="truncate text-xs">
             {userChat && (
               <FontAwesomeIcon
-                icon={userChat == "sent" ? faCheck : faCheckDouble}
+                icon={userChat == 'sent' ? faCheck : faCheckDouble}
                 className="mr-1"
                 size="xs"
               />

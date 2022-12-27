@@ -1,16 +1,17 @@
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import BubbleList from "../component/BubbleList";
-import ChatBar from "../component/ChatBar";
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import BubbleList from '../component/BubbleList';
+import ChatBar from '../component/ChatBar';
 import {
   sendMessage,
   updateMessageStatus,
-} from "../redux/features/messageSlice";
+} from '../redux/features/messageSlice';
+import React from 'react';
 
 function ChatPage() {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
   const dispatch = useDispatch();
   const messageState = useSelector((state) => state.message);
@@ -39,7 +40,7 @@ function ChatPage() {
           placeholder="Type your message here..."
           className="w-full rounded-lg mx-2 focus:ring-[#CE7777] focus:border-[#CE7777]"
           onKeyDown={(e) => {
-            if (e.key === "Enter" && message != "") {
+            if (e.key === 'Enter' && message != '') {
               const idMessage = +new Date();
               dispatch(
                 sendMessage({
@@ -48,17 +49,17 @@ function ChatPage() {
                     id: idMessage,
                     datetime: new Date().toISOString(),
                     content: message,
-                    status: "sent",
+                    status: 'sent',
                   },
                 })
               );
-              setMessage("");
+              setMessage('');
               setTimeout(() => {
                 dispatch(
                   updateMessageStatus({
                     id: messageState.opened,
                     messageId: idMessage,
-                    status: "delivered",
+                    status: 'delivered',
                   })
                 );
               }, 1000);
@@ -69,7 +70,7 @@ function ChatPage() {
           icon={faPaperPlane}
           className="ml-2 mr-5"
           onClick={() => {
-            if (message != "") {
+            if (message != '') {
               const idMessage = +new Date();
               dispatch(
                 sendMessage({
@@ -78,17 +79,17 @@ function ChatPage() {
                     id: idMessage,
                     datetime: new Date().toISOString(),
                     content: message,
-                    status: "sent",
+                    status: 'sent',
                   },
                 })
               );
-              setMessage("");
+              setMessage('');
               setTimeout(() => {
                 dispatch(
                   updateMessageStatus({
                     id: messageState.opened,
                     messageId: idMessage,
-                    status: "delivered",
+                    status: 'delivered',
                   })
                 );
               }, 1000);

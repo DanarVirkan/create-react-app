@@ -1,15 +1,15 @@
-import { faComments } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import AppBar from "../component/AppBar";
-import ChatList from "../component/ChatList";
-import ChatPage from "./ChatPage";
+import { faComments } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import AppBar from '../component/AppBar';
+import ChatList from '../component/ChatList';
+import ChatPage from './ChatPage';
 
 function MainPage() {
   const [search, openSearch] = useState(false);
-  const [filter, updateFilter] = useState("");
+  const [filter, updateFilter] = useState('');
 
   const chat = useSelector((state) => state.message.chat);
   const name = useSelector((state) => state.message.name);
@@ -19,7 +19,7 @@ function MainPage() {
 
   useEffect(() => {
     if (!name) {
-      navigate("/login");
+      navigate('/login');
     }
   });
 

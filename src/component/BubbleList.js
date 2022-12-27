@@ -1,10 +1,10 @@
-import { useEffect, useRef } from "react";
-import BubbleItem from "./BubbleItem";
+import React, { useEffect, useRef } from 'react';
+import BubbleItem from './BubbleItem';
 
 function BubbleList({ message, ownerName, name, className }) {
   const bottomRef = useRef(null);
   useEffect(() => {
-    bottomRef.current.scrollIntoView({ behaviour: "smooth" });
+    bottomRef.current.scrollIntoView({ behaviour: 'smooth' });
   }, [message]);
   return (
     <div className={`${className}`}>

@@ -1,14 +1,14 @@
-import { faComments } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { setName } from "../redux/features/messageSlice";
-import { getName } from "../utils/formatter";
+import { faComments } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { setName } from '../redux/features/messageSlice';
+import { getName } from '../utils/formatter';
 
 function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -57,7 +57,7 @@ function LoginPage() {
               onClick={() => {
                 if (email && pass) {
                   dispatch(setName(getName(email)));
-                  navigate("/");
+                  navigate('/');
                 }
               }}
             >

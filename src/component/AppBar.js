@@ -2,8 +2,9 @@ import {
   faComments,
   faSearch,
   faTimes,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
 
 function AppBar({ search, openSearch, filter, updateFilter, className }) {
   return (
@@ -12,13 +13,13 @@ function AppBar({ search, openSearch, filter, updateFilter, className }) {
     >
       {!search && (
         <FontAwesomeIcon
-          style={{ minWidth: 30 + "px", minHeight: 30 + "px" }}
+          style={{ minWidth: 30 + 'px', minHeight: 30 + 'px' }}
           icon={faComments}
         />
       )}
 
       <FontAwesomeIcon
-        style={{ minWidth: 24 + "px", minHeight: 24 + "px" }}
+        style={{ minWidth: 24 + 'px', minHeight: 24 + 'px' }}
         className="hover:cursor-pointer"
         icon={faSearch}
         onClick={() => openSearch(!search)}
@@ -39,9 +40,9 @@ function AppBar({ search, openSearch, filter, updateFilter, className }) {
         <FontAwesomeIcon
           className="hover:cursor-pointer"
           icon={faTimes}
-          style={{ minWidth: 24 + "px", minHeight: 24 + "px" }}
+          style={{ minWidth: 24 + 'px', minHeight: 24 + 'px' }}
           onClick={() => {
-            updateFilter("");
+            updateFilter('');
           }}
         />
       )}
