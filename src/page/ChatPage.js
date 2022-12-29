@@ -8,7 +8,6 @@ import {
   sendMessage,
   updateMessageStatus,
 } from '../redux/features/messageSlice';
-import React from 'react';
 
 function ChatPage() {
   const [message, setMessage] = useState('');
